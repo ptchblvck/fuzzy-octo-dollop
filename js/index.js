@@ -3,7 +3,18 @@
 const TICTACTOEFIELD_ARRAY = document.querySelectorAll("div.fields");
 let userTic;
 let userTicTac;
-let ticTacToeFieldsUsed = [];
+let npcTic;
+let ticTacToeAvailableFields = [
+  "field1",
+  "field2",
+  "field3",
+  "field4",
+  "field5",
+  "field6",
+  "field7",
+  "field8",
+  "field9",
+];
 let ticTacToeUserArray = [];
 let ticTacToeNpcArray = [];
 winPossibilities = {
@@ -20,9 +31,10 @@ winPossibilities = {
 let ticTacToe = TICTACTOEFIELD_ARRAY.forEach((tictac) =>
   tictac.addEventListener("click", (e) => {
     userTic = e.target.id;
+    npcTic = NpcRandomFieldNumber();
     console.log(userTic);
     userTicTacToField(userTic);
-    npcTicTacToField(NpcRandomFieldNumber());
+    npcTicTacToField(npcTic);
   })
 );
 
@@ -30,14 +42,14 @@ function userTicTacToField(fieldName) {
   if (ticTacToeUserArray.includes(fieldName) == true) {
     alert("field already chosen!");
     return false;
-  } else {
+  } else if (ticTacToeAvailableFields.includes(fieldName)) {
     for (let i = 0; i < 2; i++) {
       let crossSpan = document.createElement("span");
       crossSpan.className = "player-cross-filled";
       document.getElementById(fieldName).append(crossSpan);
     }
     ticTacToeUserArray.push(fieldName);
-
+    deleteFromPossibleField(fieldName);
     console.log(ticTacToeUserArray);
 
     userWins();
@@ -47,10 +59,10 @@ function userTicTacToField(fieldName) {
 function usedFieldDetection(fieldName) {
   let usedFieldPosition = parseInt(fieldName.slice(5, 6));
   if (ticTacToeUserArray.includes(fieldName) == true) {
-    ticTacToeFieldsUsed.splice(usedFieldPosition, 0, "x");
+    ticTacToeAvailableFields.splice(usedFieldPosition, 0, "x");
   }
   if (ticTacToeNpcArray.includes(fieldName) == true) {
-    ticTacToeFieldsUsed.splice(usedFieldPosition, 0, "o");
+    ticTacToeAvailableFields.splice(usedFieldPosition, 0, "o");
   }
 }
 
@@ -90,8 +102,8 @@ function NpcRandomFieldNumber() {
 
 function npcTicTacToField(fieldName) {
   if (
-    ticTacToeNpcArray.includes(fieldName) == true ||
-    ticTacToeUserArray.includes(fieldName) == true
+    ticTacToeNpcArray.includes(fieldName) &&
+    !ticTacToeAvailableFields.includes(fieldName)
   ) {
     return false;
   }
@@ -100,16 +112,28 @@ function npcTicTacToField(fieldName) {
   //   !ticTacToeNpcArray.includes(fieldName)
   // ) {
   // }
-  else {
-    for (let i = 0; i < 2; i++) {
+  else if (ticTacToeAvailableFields.includes(fieldName)) {
+    for (let i = 0; i < 1; i++) {
       let circleNpc = document.createElement("div");
       circleNpc.className = "computer-circle-filled";
       document.getElementById(fieldName).append(circleNpc);
     }
     ticTacToeNpcArray.push(fieldName);
-
+    deleteFromPossibleField(fieldName);
     console.log(ticTacToeNpcArray);
   }
+}
+
+function deleteFromPossibleField(fieldName) {
+  for (let i = 0; i < ticTacToeAvailableFields.length; i++) {
+    if (ticTacToeAvailableFields.includes(fieldName)) {
+      ticTacToeAvailableFields.splice(
+        ticTacToeAvailableFields.indexOf(fieldName),
+        1
+      );
+    }
+  }
+  console.log(ticTacToeAvailableFields);
 }
 
 npcTicTacToField(NpcRandomFieldNumber());
