@@ -1,0 +1,107 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.grid {
+  background-color: #000;
+}
+
+.tictactoe {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 5px;
+}
+
+.fields {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  background-color: #fff;
+}
+
+.text-result {
+  width: 400px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.player {
+  display: flex;
+  position: relative;
+  align-items: center;
+  padding-right: 45px;
+}
+
+.player-cross {
+  position: absolute;
+  display: inline-block;
+  border-top: purple solid 3px;
+  width: 40px;
+  right: 0;
+}
+
+.player-cross:nth-child(3) {
+  transform: rotate(45deg);
+}
+
+.player-cross:nth-child(2) {
+  transform: rotate(-45deg);
+}
+
+.player-cross-filled {
+  position: absolute;
+  display: inline-block;
+  border-top: purple solid 3px;
+  width: 100px;
+  right: 0;
+  bottom: 50%;
+}
+
+.player-cross-filled:nth-child(1) {
+  transform: rotate(45deg);
+}
+
+.player-cross-filled:nth-child(2) {
+  transform: rotate(-45deg);
+}
+
+.computer {
+  display: flex;
+  position: relative;
+  align-items: center;
+  padding-right: 45px;
+}
+
+.computer-circle {
+  display: inline-block;
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border: hotpink solid 3px;
+  border-radius: 50%;
+  right: 0;
+}
+
+.computer-circle-filled {
+  display: inline-block;
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  border: hotpink solid 3px;
+  border-radius: 50%;
+  margin-left: 5px;
+  margin-top: 5px;
+}
