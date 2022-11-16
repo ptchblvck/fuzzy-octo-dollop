@@ -2,8 +2,8 @@
 
 const TICTACTOEFIELD_ARRAY = document.querySelectorAll("div.fields");
 let userTic;
-let userTicTac;
 let npcTic;
+let gameOver = false;
 let ticTacToeAvailableFields = [
   "field1",
   "field2",
@@ -28,15 +28,22 @@ winPossibilities = {
   win8: ["field3", "field5", "field7"],
 };
 
+// tic tac toe game
+
 let ticTacToe = TICTACTOEFIELD_ARRAY.forEach((tictac) =>
   tictac.addEventListener("click", (e) => {
     userTic = e.target.id;
     npcTic = NpcRandomFieldNumber();
-    console.log(userTic);
     userTicTacToField(userTic);
+    while (checkIfFieldEmpty(npcTic)) {
+      npcTic = NpcRandomFieldNumber();
+    }
     npcTicTacToField(npcTic);
+    whoWillWinTheGame();
   })
 );
+
+// draw X into parameter  //? (<div id="fieldName"></div>)
 
 function userTicTacToField(fieldName) {
   if (ticTacToeUserArray.includes(fieldName) == true) {
@@ -50,9 +57,7 @@ function userTicTacToField(fieldName) {
     }
     ticTacToeUserArray.push(fieldName);
     deleteFromPossibleField(fieldName);
-    console.log(ticTacToeUserArray);
-
-    userWins();
+    console.log(`Player picked: ${ticTacToeUserArray}`);
   }
 }
 
@@ -70,49 +75,19 @@ function sortArrayToString(arrayName) {
   return JSON.stringify(arrayName.sort());
 }
 
-// this is where the magic happens...
-
-function userWins() {
-  let userWinChanceOptions = Object.keys(winPossibilities);
-  for (let chance = 0; chance < userWinChanceOptions.length; chance++) {
-    const userWinChancePosition = userWinChanceOptions[chance];
-    let userWinResult = sortArrayToString(ticTacToeUserArray);
-    let userWinComparison = sortArrayToString(
-      winPossibilities[userWinChancePosition]
-    );
-    if (userWinResult == userWinComparison) {
-      console.log("you win!");
-    }
-  }
-  // for (let i = 0; i < ticTacToeUserArray.length; i++) {
-  //   const userArrayPosition = ticTacToeUserArray[i];
-  //   if (
-  //     winPossibilities.win1.includes(userArrayPosition) &&
-  //     ticTacToeUserArray.length > 2
-  //   ) {
-  //     console.log("you Win!");
-  //   }
-  // }
-}
+// random number from 1 to 9 -> returns field number
 
 function NpcRandomFieldNumber() {
   let npcRandomField = Math.floor(Math.random() * 9) + 1;
   return "field" + npcRandomField;
 }
 
+// npc function to draw a circle to field
+
 function npcTicTacToField(fieldName) {
-  if (
-    ticTacToeNpcArray.includes(fieldName) &&
-    !ticTacToeAvailableFields.includes(fieldName)
-  ) {
+  if (ticTacToeNpcArray.includes(fieldName) && checkIfFieldEmpty(fieldName)) {
     return false;
-  }
-  // if (
-  //   !ticTacToeUserArray.includes(fieldName) &&
-  //   !ticTacToeNpcArray.includes(fieldName)
-  // ) {
-  // }
-  else if (ticTacToeAvailableFields.includes(fieldName)) {
+  } else if (ticTacToeAvailableFields.includes(fieldName)) {
     for (let i = 0; i < 1; i++) {
       let circleNpc = document.createElement("div");
       circleNpc.className = "computer-circle-filled";
@@ -120,9 +95,11 @@ function npcTicTacToField(fieldName) {
     }
     ticTacToeNpcArray.push(fieldName);
     deleteFromPossibleField(fieldName);
-    console.log(ticTacToeNpcArray);
+    console.log(`Npc picked ${ticTacToeNpcArray}`);
   }
 }
+
+// deletes the parameter given to function from the available fields
 
 function deleteFromPossibleField(fieldName) {
   for (let i = 0; i < ticTacToeAvailableFields.length; i++) {
@@ -133,7 +110,43 @@ function deleteFromPossibleField(fieldName) {
       );
     }
   }
-  console.log(ticTacToeAvailableFields);
 }
 
-npcTicTacToField(NpcRandomFieldNumber());
+// check for emptyness of field //? returns false if field is empty
+
+function checkIfFieldEmpty(fieldName) {
+  if (ticTacToeAvailableFields.includes(fieldName)) {
+    return false;
+  }
+  return true;
+}
+
+// this is where winner will be determined
+
+function whoWillWinTheGame() {
+  if (winOption(ticTacToeUserArray)) {
+    console.log("Player Wins!");
+  } else if (winOption(ticTacToeNpcArray)) {
+    console.log("Computer Wins!");
+  }
+}
+
+// this is the check for if array of player or computer matches with the winning options
+
+function winOption(groupFields) {
+  let winPossibilityArray = Object.keys(winPossibilities);
+  for (let i = 0; i < winPossibilityArray.length; i++) {
+    const WIN_POS = winPossibilityArray[i];
+    for (let j = 0; j < winPossibilities[WIN_POS].length; j++) {
+      const WIN_ARRAY_POS = winPossibilities[WIN_POS];
+      if (
+        groupFields.includes(WIN_ARRAY_POS[0]) &&
+        groupFields.includes(WIN_ARRAY_POS[1]) &&
+        groupFields.includes(WIN_ARRAY_POS[2])
+      ) {
+        return true;
+      }
+    }
+  }
+  return false;
+}

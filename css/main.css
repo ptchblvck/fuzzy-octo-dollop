@@ -1,3 +1,19 @@
+/* variables */
+
+:root {
+  --color-one: hotpink;
+  --color-two: plum;
+  --color-three: palegreen;
+  --color-four: sandybrown;
+  --color-five: slateblue;
+  --color-six: crimson;
+  --color-seven: darkblue;
+  --color-eight: seagreen;
+
+  --color-player: plum;
+  --color-npc: hotpink;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -5,6 +21,7 @@
 body {
   margin: 0;
   font-family: sans-serif;
+  background-color: slategray;
 }
 
 .container {
@@ -25,10 +42,62 @@ body {
 }
 
 .fields {
+  cursor: pointer;
   position: relative;
   width: 100px;
   height: 100px;
-  background-color: #fff;
+  background-color: slategray;
+  border: transparent solid 2px;
+}
+
+.fields:hover {
+  border-color: #ffffff82;
+}
+
+.picking-color {
+  width: 20%;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.picking-color > * {
+  cursor: pointer;
+  height: 30px;
+  width: 30px;
+  background-color: royalblue;
+  border: #000 solid 2px;
+}
+
+.picking-color > *:hover {
+  border-color: #fff;
+}
+
+.picking-color > *:nth-child(1) {
+  background-color: var(--color-seven);
+}
+.picking-color > *:nth-child(2) {
+  background-color: var(--color-five);
+}
+.picking-color > *:nth-child(3) {
+  background-color: var(--color-one);
+}
+.picking-color > *:nth-child(4) {
+  background-color: var(--color-two);
+}
+.picking-color > *:nth-child(5) {
+  background-color: var(--color-three);
+}
+.picking-color > *:nth-child(6) {
+  background-color: var(--color-eight);
+}
+.picking-color > *:nth-child(7) {
+  background-color: var(--color-four);
+}
+.picking-color > *:nth-child(8) {
+  background-color: var(--color-six);
 }
 
 .text-result {
@@ -48,7 +117,7 @@ body {
 .player-cross {
   position: absolute;
   display: inline-block;
-  border-top: purple solid 3px;
+  border-top: var(--color-player) solid 3px;
   width: 40px;
   right: 0;
 }
@@ -64,7 +133,7 @@ body {
 .player-cross-filled {
   position: absolute;
   display: inline-block;
-  border-top: purple solid 3px;
+  border-top: var(--color-player) solid 3px;
   width: 100px;
   right: 0;
   bottom: 50%;
@@ -90,7 +159,7 @@ body {
   position: absolute;
   width: 40px;
   height: 40px;
-  border: hotpink solid 3px;
+  border: var(--color-npc) solid 3px;
   border-radius: 50%;
   right: 0;
 }
@@ -100,8 +169,8 @@ body {
   position: absolute;
   width: 90px;
   height: 90px;
-  border: hotpink solid 3px;
+  border: var(--color-npc) solid 3px;
   border-radius: 50%;
-  margin-left: 5px;
-  margin-top: 5px;
+  margin-left: 3px;
+  margin-top: 3px;
 }
