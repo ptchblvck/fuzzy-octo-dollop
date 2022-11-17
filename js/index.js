@@ -1,6 +1,18 @@
-// tic tac toe
+// tic tac toe constants
 
 const TICTACTOEFIELD_ARRAY = document.querySelectorAll("div.fields");
+const ROOT = document.querySelector(":root");
+const COLORS = document.querySelectorAll(".picking-color > div");
+
+// variables for colors
+
+let pickedColor;
+let changedColor;
+let colorValue = [];
+
+// tia tac toe variables
+
+let colorDivArray = [];
 let userTic;
 let npcTic;
 let gameOver = false;
@@ -57,7 +69,7 @@ function userTicTacToField(fieldName) {
     }
     ticTacToeUserArray.push(fieldName);
     deleteFromPossibleField(fieldName);
-    console.log(`Player picked: ${ticTacToeUserArray}`);
+    // console.log(`Player picked: ${ticTacToeUserArray}`);
   }
 }
 
@@ -95,7 +107,7 @@ function npcTicTacToField(fieldName) {
     }
     ticTacToeNpcArray.push(fieldName);
     deleteFromPossibleField(fieldName);
-    console.log(`Npc picked ${ticTacToeNpcArray}`);
+    // console.log(`Npc picked ${ticTacToeNpcArray}`);
   }
 }
 
@@ -150,3 +162,79 @@ function winOption(groupFields) {
   }
   return false;
 }
+
+// changing color
+
+function getColor() {
+  let rootStyle = getComputedStyle(ROOT);
+  console.log(
+    `The value of ${pickedColor} is: ` +
+      rootStyle.getPropertyValue("--color-player")
+  );
+}
+
+function changePlayerColor(color) {
+  ROOT.style.setProperty("--color-player", color);
+}
+
+function changeNpcColor(color) {
+  ROOT.style.setProperty("--color-npc", color);
+}
+
+COLORS.forEach((colorPosition) =>
+  colorPosition.addEventListener("click", (c) => {
+    pickedColor = c.currentTarget.id.slice(5) - 1;
+    console.log(getAllColorValues(pickedColor));
+    changePlayerColor(getAllColorValues(pickedColor));
+    colorPicker();
+  })
+);
+
+function getAllColorValues(colorPosition) {
+  for (const element of COLORS) {
+    colorValue.push(
+      window
+        .getComputedStyle(element, null)
+        .getPropertyValue("background-color")
+    );
+  }
+  return colorValue[colorPosition];
+}
+
+function colorNumber() {
+  for (let i = 0; i < COLORS.length; i++) {
+    const position = COLORS[i];
+  }
+}
+
+function colorPicker() {
+  if (pickedColor == 0) {
+    changedColor = 7;
+    changeNpcColor(getAllColorValues(changedColor));
+  } else if (pickedColor == 1) {
+    changedColor = 6;
+    changeNpcColor(getAllColorValues(changedColor));
+  } else if (pickedColor == 2) {
+    changedColor = 5;
+    changeNpcColor(getAllColorValues(changedColor));
+  } else if (pickedColor == 3) {
+    changedColor = 4;
+    changeNpcColor(getAllColorValues(changedColor));
+  } else if (pickedColor == 4) {
+    changedColor = 3;
+    changeNpcColor(getAllColorValues(changedColor));
+  } else if (pickedColor == 5) {
+    changedColor = 2;
+    changeNpcColor(getAllColorValues(changedColor));
+  } else if (pickedColor == 6) {
+    changedColor = 1;
+    changeNpcColor(getAllColorValues(changedColor));
+  } else if (pickedColor == 7) {
+    changedColor = 0;
+    changeNpcColor(getAllColorValues(changedColor));
+  }
+}
+
+window
+  .getComputedStyle(document.querySelectorAll(".picking-color > div")[0], null)
+  .getPropertyValue("background-color");

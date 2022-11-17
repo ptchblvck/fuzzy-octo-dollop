@@ -1,17 +1,17 @@
 /* variables */
 
 :root {
-  --color-one: hotpink;
-  --color-two: plum;
-  --color-three: palegreen;
-  --color-four: sandybrown;
-  --color-five: slateblue;
-  --color-six: crimson;
-  --color-seven: darkblue;
-  --color-eight: seagreen;
+  --color-one: darkblue;
+  --color-two: slateblue;
+  --color-three: hotpink;
+  --color-four: plum;
+  --color-five: palegreen;
+  --color-six: aquamarine;
+  --color-seven: sandybrown;
+  --color-eight: crimson;
 
-  --color-player: plum;
-  --color-npc: hotpink;
+  --color-player: darkblue;
+  --color-npc: crimson;
 }
 
 * {
@@ -67,7 +67,7 @@ body {
   cursor: pointer;
   height: 30px;
   width: 30px;
-  background-color: royalblue;
+  /* background-color: royalblue; */
   border: #000 solid 2px;
 }
 
@@ -75,29 +75,31 @@ body {
   border-color: #fff;
 }
 
+/* defining the colors for all the child elements of color container */
+
 .picking-color > *:nth-child(1) {
-  background-color: var(--color-seven);
-}
-.picking-color > *:nth-child(2) {
-  background-color: var(--color-five);
-}
-.picking-color > *:nth-child(3) {
   background-color: var(--color-one);
 }
-.picking-color > *:nth-child(4) {
+.picking-color > *:nth-child(2) {
   background-color: var(--color-two);
 }
-.picking-color > *:nth-child(5) {
+.picking-color > *:nth-child(3) {
   background-color: var(--color-three);
 }
-.picking-color > *:nth-child(6) {
-  background-color: var(--color-eight);
-}
-.picking-color > *:nth-child(7) {
+.picking-color > *:nth-child(4) {
   background-color: var(--color-four);
 }
-.picking-color > *:nth-child(8) {
+.picking-color > *:nth-child(5) {
+  background-color: var(--color-five);
+}
+.picking-color > *:nth-child(6) {
   background-color: var(--color-six);
+}
+.picking-color > *:nth-child(7) {
+  background-color: var(--color-seven);
+}
+.picking-color > *:nth-child(8) {
+  background-color: var(--color-eight);
 }
 
 .text-result {
