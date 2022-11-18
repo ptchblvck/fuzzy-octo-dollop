@@ -208,30 +208,39 @@ function colorNumber() {
 }
 
 function colorPicker() {
-  if (pickedColor == 0) {
-    changedColor = 7;
-    changeNpcColor(getAllColorValues(changedColor));
-  } else if (pickedColor == 1) {
-    changedColor = 6;
-    changeNpcColor(getAllColorValues(changedColor));
-  } else if (pickedColor == 2) {
-    changedColor = 5;
-    changeNpcColor(getAllColorValues(changedColor));
-  } else if (pickedColor == 3) {
-    changedColor = 4;
-    changeNpcColor(getAllColorValues(changedColor));
-  } else if (pickedColor == 4) {
-    changedColor = 3;
-    changeNpcColor(getAllColorValues(changedColor));
-  } else if (pickedColor == 5) {
-    changedColor = 2;
-    changeNpcColor(getAllColorValues(changedColor));
-  } else if (pickedColor == 6) {
-    changedColor = 1;
-    changeNpcColor(getAllColorValues(changedColor));
-  } else if (pickedColor == 7) {
-    changedColor = 0;
-    changeNpcColor(getAllColorValues(changedColor));
+  switch (pickedColor) {
+    case 0:
+      changedColor = 7;
+      changeNpcColor(getAllColorValues(changedColor));
+      break;
+    case 1:
+      changedColor = 6;
+      changeNpcColor(getAllColorValues(changedColor));
+      break;
+    case 2:
+      changedColor = 5;
+      changeNpcColor(getAllColorValues(changedColor));
+      break;
+    case 3:
+      changedColor = 4;
+      changeNpcColor(getAllColorValues(changedColor));
+      break;
+    case 4:
+      changedColor = 3;
+      changeNpcColor(getAllColorValues(changedColor));
+      break;
+    case 5:
+      changedColor = 2;
+      changeNpcColor(getAllColorValues(changedColor));
+      break;
+    case 6:
+      changedColor = 1;
+      changeNpcColor(getAllColorValues(changedColor));
+      break;
+    case 7:
+      changedColor = 0;
+      changeNpcColor(getAllColorValues(changedColor));
+      break;
   }
 }
 
