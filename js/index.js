@@ -208,42 +208,11 @@ function colorNumber() {
 }
 
 function colorPicker() {
-  switch (pickedColor) {
-    case 0:
-      changedColor = 7;
-      changeNpcColor(getAllColorValues(changedColor));
-      break;
-    case 1:
-      changedColor = 6;
-      changeNpcColor(getAllColorValues(changedColor));
-      break;
-    case 2:
-      changedColor = 5;
-      changeNpcColor(getAllColorValues(changedColor));
-      break;
-    case 3:
-      changedColor = 4;
-      changeNpcColor(getAllColorValues(changedColor));
-      break;
-    case 4:
-      changedColor = 3;
-      changeNpcColor(getAllColorValues(changedColor));
-      break;
-    case 5:
-      changedColor = 2;
-      changeNpcColor(getAllColorValues(changedColor));
-      break;
-    case 6:
-      changedColor = 1;
-      changeNpcColor(getAllColorValues(changedColor));
-      break;
-    case 7:
-      changedColor = 0;
-      changeNpcColor(getAllColorValues(changedColor));
-      break;
+  for (let i = 0, j = 7; i < 8, j >= 0; i++, j--) {
+    switch (pickedColor) {
+      case i:
+        changeNpcColor(getAllColorValues(j));
+        break;
+    }
   }
 }
-
-window
-  .getComputedStyle(document.querySelectorAll(".picking-color > div")[0], null)
-  .getPropertyValue("background-color");
