@@ -41,7 +41,6 @@ winPossibilities = {
 };
 
 // tic tac toe game
-
 let ticTacToe = TICTACTOEFIELD_ARRAY.forEach((tictac) =>
   tictac.addEventListener("click", (e) => {
     userTic = e.target.id;
@@ -50,15 +49,18 @@ let ticTacToe = TICTACTOEFIELD_ARRAY.forEach((tictac) =>
     while (checkIfFieldEmpty(npcTic)) {
       npcTic = NpcRandomFieldNumber();
     }
-    npcTicTacToField(npcTic);
+    if (ticTacToeAvailableFields.length > 0) {
+      npcTicTacToField(npcTic);
+    }
     whoWillWinTheGame();
+    console.log(gameOver);
   })
 );
 
 // draw X into parameter  //? (<div id="fieldName"></div>)
 
 function userTicTacToField(fieldName) {
-  if (ticTacToeUserArray.includes(fieldName) == true) {
+  if (!ticTacToeAvailableFields.includes(fieldName)) {
     alert("field already chosen!");
     return false;
   } else if (ticTacToeAvailableFields.includes(fieldName)) {
@@ -138,8 +140,10 @@ function checkIfFieldEmpty(fieldName) {
 function whoWillWinTheGame() {
   if (winOption(ticTacToeUserArray)) {
     console.log("Player Wins!");
+    gameOver = true;
   } else if (winOption(ticTacToeNpcArray)) {
     console.log("Computer Wins!");
+    gameOver = true;
   }
 }
 
