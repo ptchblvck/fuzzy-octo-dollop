@@ -49,7 +49,7 @@ let ticTacToe = TICTACTOEFIELD_ARRAY.forEach((tictac) =>
     while (checkIfFieldEmpty(npcTic)) {
       npcTic = NpcRandomFieldNumber();
     }
-    if (ticTacToeAvailableFields.length > 0) {
+    if (ticTacToeAvailableFields.length > 1) {
       npcTicTacToField(npcTic);
     }
     whoWillWinTheGame();
