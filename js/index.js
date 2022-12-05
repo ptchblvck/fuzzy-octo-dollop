@@ -27,6 +27,7 @@ let ticTacToeAvailableFields = [
   "field8",
   "field9",
 ];
+const ticTacToePlayedFields = ticTacToeAvailableFields.map((e) => e);
 let ticTacToeUserArray = [];
 let ticTacToeNpcArray = [];
 winPossibilities = {
@@ -49,9 +50,15 @@ let ticTacToe = TICTACTOEFIELD_ARRAY.forEach((tictac) =>
     while (checkIfFieldEmpty(npcTic)) {
       npcTic = NpcRandomFieldNumber();
     }
+<<<<<<< Updated upstream
     if (ticTacToeAvailableFields.length > 1) {
       npcTicTacToField(npcTic);
     }
+=======
+    npcTicTacToField(npcTic);
+    usedFieldDetection(userTic);
+    usedFieldDetection(npcTic);
+>>>>>>> Stashed changes
     whoWillWinTheGame();
     console.log(gameOver);
   })
@@ -76,13 +83,14 @@ function userTicTacToField(fieldName) {
 }
 
 function usedFieldDetection(fieldName) {
-  let usedFieldPosition = parseInt(fieldName.slice(5, 6));
+  let usedFieldPosition = parseInt(fieldName.slice(5, 6)) - 1;
   if (ticTacToeUserArray.includes(fieldName) == true) {
-    ticTacToeAvailableFields.splice(usedFieldPosition, 0, "x");
+    ticTacToePlayedFields.splice(usedFieldPosition, 1, "x");
   }
   if (ticTacToeNpcArray.includes(fieldName) == true) {
-    ticTacToeAvailableFields.splice(usedFieldPosition, 0, "o");
+    ticTacToePlayedFields.splice(usedFieldPosition, 1, "o");
   }
+  console.log(ticTacToePlayedFields);
 }
 
 function sortArrayToString(arrayName) {
@@ -129,7 +137,10 @@ function deleteFromPossibleField(fieldName) {
 // check for emptyness of field //? returns false if field is empty
 
 function checkIfFieldEmpty(fieldName) {
-  if (ticTacToeAvailableFields.includes(fieldName)) {
+  if (
+    ticTacToeAvailableFields.includes(fieldName) ||
+    ticTacToeAvailableFields.length < 1
+  ) {
     return false;
   }
   return true;
@@ -219,4 +230,12 @@ function colorPicker() {
         break;
     }
   }
+}
+
+function npcWillAlwaysWin() {
+  const fieldChoices = [
+    ["", "", ""],
+    ["", "", ""],
+    ["", "", ""],
+  ];
 }
