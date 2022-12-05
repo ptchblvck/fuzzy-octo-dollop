@@ -42,6 +42,7 @@ winPossibilities = {
 };
 
 // tic tac toe game
+
 let ticTacToe = TICTACTOEFIELD_ARRAY.forEach((tictac) =>
   tictac.addEventListener("click", (e) => {
     userTic = e.target.id;
@@ -50,24 +51,17 @@ let ticTacToe = TICTACTOEFIELD_ARRAY.forEach((tictac) =>
     while (checkIfFieldEmpty(npcTic)) {
       npcTic = NpcRandomFieldNumber();
     }
-<<<<<<< Updated upstream
-    if (ticTacToeAvailableFields.length > 1) {
-      npcTicTacToField(npcTic);
-    }
-=======
     npcTicTacToField(npcTic);
     usedFieldDetection(userTic);
     usedFieldDetection(npcTic);
->>>>>>> Stashed changes
     whoWillWinTheGame();
-    console.log(gameOver);
   })
 );
 
 // draw X into parameter  //? (<div id="fieldName"></div>)
 
 function userTicTacToField(fieldName) {
-  if (!ticTacToeAvailableFields.includes(fieldName)) {
+  if (ticTacToeUserArray.includes(fieldName) == true) {
     alert("field already chosen!");
     return false;
   } else if (ticTacToeAvailableFields.includes(fieldName)) {
@@ -90,7 +84,6 @@ function usedFieldDetection(fieldName) {
   if (ticTacToeNpcArray.includes(fieldName) == true) {
     ticTacToePlayedFields.splice(usedFieldPosition, 1, "o");
   }
-  console.log(ticTacToePlayedFields);
 }
 
 function sortArrayToString(arrayName) {
@@ -151,10 +144,8 @@ function checkIfFieldEmpty(fieldName) {
 function whoWillWinTheGame() {
   if (winOption(ticTacToeUserArray)) {
     console.log("Player Wins!");
-    gameOver = true;
   } else if (winOption(ticTacToeNpcArray)) {
     console.log("Computer Wins!");
-    gameOver = true;
   }
 }
 
@@ -232,10 +223,27 @@ function colorPicker() {
   }
 }
 
+// hard mode
+function oneThreeSevenNine() {
+  let num = Math.ceil(Math.random() * 4);
+  switch (num) {
+    case 1:
+      return "field1";
+    case 2:
+      return "field3";
+    case 3:
+      return "field7";
+    case 4:
+      return "field9";
+    default:
+      break;
+  }
+}
+
 function npcWillAlwaysWin() {
-  const fieldChoices = [
-    ["", "", ""],
-    ["", "", ""],
-    ["", "", ""],
-  ];
+  let round = 0;
+  if (ticTacToePlayedFields[4] == "x" && round == 0) {
+    npcTicTacToField(oneThreeSevenNine);
+    round++;
+  }
 }
