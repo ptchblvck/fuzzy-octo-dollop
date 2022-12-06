@@ -1,6 +1,6 @@
 // tic tac toe constants
 
-const TICTACTOEFIELD_ARRAY = document.querySelectorAll("div.fields");
+const ticTacToeFieldArray = document.querySelectorAll("div.fields");
 const ROOT = document.querySelector(":root");
 const COLORS = document.querySelectorAll(".picking-color > div");
 
@@ -41,9 +41,11 @@ winPossibilities = {
   win8: ["field3", "field5", "field7"],
 };
 
+let playedGames = 0;
+
 // tic tac toe game
 
-let ticTacToe = TICTACTOEFIELD_ARRAY.forEach((tictac) =>
+let ticTacToeFieldId = ticTacToeFieldArray.forEach((tictac) =>
   tictac.addEventListener("click", (e) => {
     userTic = e.target.id;
     npcTic = NpcRandomFieldNumber();
@@ -143,9 +145,24 @@ function checkIfFieldEmpty(fieldName) {
 
 function whoWillWinTheGame() {
   if (winOption(ticTacToeUserArray)) {
+    document.querySelector("h1").textContent = "Player Wins!";
     console.log("Player Wins!");
+    setTimeout((e) => {
+      e = location.reload();
+    }, 2000);
   } else if (winOption(ticTacToeNpcArray)) {
+    document.querySelector("h1").textContent = "Computer Wins!";
     console.log("Computer Wins!");
+    setTimeout((e) => {
+      e = location.reload();
+    }, 2000);
+  }
+  if (ticTacToeAvailableFields.length < 1) {
+    document.querySelector("h1").textContent = "It's a Draw!";
+    console.log("It's a Draw!");
+    setTimeout((e) => {
+      e = location.reload();
+    }, 2000);
   }
 }
 
@@ -224,7 +241,10 @@ function colorPicker() {
 }
 
 // hard mode
-function oneThreeSevenNine() {
+
+// computer choses one of the corners
+
+function npcRoundOne() {
   let num = Math.ceil(Math.random() * 4);
   switch (num) {
     case 1:
@@ -241,9 +261,68 @@ function oneThreeSevenNine() {
 }
 
 function npcWillAlwaysWin() {
-  let round = 0;
-  if (ticTacToePlayedFields[4] == "x" && round == 0) {
-    npcTicTacToField(oneThreeSevenNine);
-    round++;
+  if (playedGames == 0) {
+    if (ticTacToePlayedFields[4] == "x") {
+      npcTicTacToField(npcRoundOne);
+      playedGames++;
+    }
+    if (
+      ticTacToePlayedFields[0] == "x" ||
+      ticTacToePlayedFields[2] == "x" ||
+      ticTacToePlayedFields[6] == "x" ||
+      ticTacToePlayedFields[8] == "x"
+    ) {
+      npcTicTacToField("field5");
+      playedGames++;
+    }
+  }
+
+  /* the if the game looks not like this:
+
+      [o][ ][ ] or [ ][ ][o] or [ ][ ][ ] or [ ][ ][ ]
+      [ ][x][ ]    [ ][x][ ]    [ ][x][ ]    [ ][x][ ]
+      [ ][ ][ ]    [ ][ ][ ]    [o][ ][ ]    [ ][ ][o]
+
+      player chose one of the corners:
+
+      [x][ ][ ]
+      [ ][x][ ]
+      [ ][ ][o]
+  */
+
+  if (playedGames == 1) {
+    if (ticTacToePlayedFields[4] == "x") {
+      if (
+        !ticTacToePlayedFields[1] == "x" &&
+        !ticTacToePlayedFields[3] == "x" &&
+        !ticTacToePlayedFields[5] == "x" &&
+        !ticTacToePlayedFields[7] == "x"
+      ) {
+        if (
+          ticTacToePlayedFields[0] == "o" &&
+          ticTacToeAvailableFields.includes("field9")
+        ) {
+          npcTicTacToField("field9");
+        }
+        if (
+          ticTacToePlayedFields[2] == "o" &&
+          ticTacToeAvailableFields.includes("field7")
+        ) {
+          npcTicTacToField("field7");
+        }
+        if (
+          ticTacToePlayedFields[6] == "o" &&
+          ticTacToeAvailableFields.includes("field3")
+        ) {
+          npcTicTacToField("field3");
+        }
+        if (
+          ticTacToePlayedFields[8] == "o" &&
+          ticTacToeAvailableFields.includes("field1")
+        ) {
+          npcTicTacToField("field1");
+        }
+      }
+    }
   }
 }
